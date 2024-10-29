@@ -1,0 +1,541 @@
+.main{
+    margin-top: 8vh;
+    /* padding-top: 300px; */
+    padding: 0 0;
+    /* min-width: min-content;
+    max-width: max-content; */
+    /* background-color: aqua; */
+    /* margin: 18vh 0 0 0; */
+    display: flex;
+    height: 83vh; /* necesario */
+    /* min-height: 23vh; */
+    width: 100%;/* necesario */
+    flex-direction: column;
+    /* min-height: min-content;
+    max-height: max-content; */
+}
+
+.bienvenida{
+    /* padding-left: 0.5rem; */
+    padding: 1rem;
+    font-size: 1rem;
+    height: 3vh;
+    display: flex;
+    align-items: center;
+    /* min-height: 2vh; */
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.bienvenida p{
+    padding: 0;
+    margin: 0;
+}
+
+.bienvenida a{
+    text-decoration:underline;
+    color:currentColor;
+}
+
+.linea{
+    border-top: 1px solid #ccc;
+    margin: 0;
+    padding: 0;
+}
+
+.div_central{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* justify-items: center; */
+    align-items: center;
+    height: 76vh;
+    /* min-height: 20vh; */
+}
+
+.div_central.light{
+    /* background-image: linear-gradient(90deg,#8080800a 3px,transparent 0),linear-gradient(180deg,#8080800a 3px,transparent 0);  */
+    /*.bg-\[linear-gradient\(to_right\2c */
+    /* background-size: 14px 24px; */
+    background-color: #eef7ff;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #eef7ff 14px ), repeating-linear-gradient( #bde0ff55, #bde0ff );
+    /* inset: 0; */
+}
+
+/* .div_central.dark{
+    background-color: cur
+} */
+
+.mensaje_central, .enlaces_central{
+    width: 80%;
+}
+.mensaje_central p, .mensaje_central h1{
+    text-align: center;
+}
+
+.mensaje_central h1{
+    font-size: 3.2rem;
+    font-weight: bolder;
+    text-decoration: dashed;
+}
+
+.mensaje_central p{
+    font-size: 1rem;
+    /* font-weight: bolder; */
+    font-style:italic;
+}
+
+.enlaces_central{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+}
+
+.enlaces_central a{
+    text-decoration: none;
+    color: #eef7ff;
+    background-color: #348efd;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+}
+
+.enlaces_central a:hover {
+    background-image: linear-gradient(to bottom, #348efd, #1e6ff2); /* Gradiente al pasar el ratón */
+}
+
+.enlaces_central .codigo{
+    margin-left: 0.5rem;
+}
+/* .enlaces_central .codigo{
+    background-color: linear-gradient(to bottom, #348efd, #1e6ff2);
+    background-size: 100% 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+} */
+
+
+/* footer{
+    width: 100%;
+    background-color: #3d3d3d;
+    height: 10vh;
+} */
+
+
+@media (max-width: 280px) and (max-height: 340px) {
+
+    .mensaje_central h1{
+        font-size: 16px;
+    }
+
+    .mensaje_central p{
+        font-size: 7px;
+    }
+    .bienvenida{
+        padding: 0;
+        font-size: 7px;
+        height: 14vh;
+        /* align-items: center;
+        justify-content: center; */
+    }
+    .div_central{
+        height: 69vh;
+    }
+    .bienvenida p{
+        padding: 0;
+        padding-left: 6px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 2.5px 7.5px;
+        font-size: 7px;
+    }
+}
+
+@media (min-width: 280px) and (max-height: 390px) {
+
+    .mensaje_central h1{
+        font-size: 18px;
+    }
+
+    .mensaje_central p{
+        font-size: 9px;
+    }
+    .bienvenida{
+        padding: 0;
+        font-size: 9px;
+        height: 9vh;
+        /* align-items: center;
+        justify-content: center; */
+    }
+    .div_central{
+        height: 74vh;
+    }
+    .bienvenida p{
+        padding: 0;
+        padding-left: 6px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 5px 10px;
+        font-size: 9px;
+    }
+}
+
+/* @media (min-width: 450px) and (min-height: 325px) {
+
+    .mensaje_central h1{
+        font-size: 16px;
+    }
+
+    .mensaje_central p{
+        font-size: 6px;
+    }
+    .bienvenida{
+        padding: 0;
+        font-size: 10px;
+        height: 9vh;
+    }
+    .div_central{
+        height: 74vh;
+    }
+    .bienvenida p{
+        padding: 0px
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 5px 10px;
+        font-size: 6px;
+    }
+} */
+
+
+@media (min-width: 450px) and (min-height: 340px) {
+
+    .mensaje_central h1{
+        font-size: 26px;
+    }
+
+    .mensaje_central p{
+        font-size: 12px;
+    }
+    .bienvenida{
+        padding-left: 3px;
+        height: 28px;
+    }
+    .div_central{
+        height: 75vh;
+    }
+    .bienvenida p{
+        padding: 0px;
+        font-size: 12px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+}
+
+
+@media (max-width: 450px) and (min-height: 390px) {
+
+    .mensaje_central h1{
+        font-size: 34px;
+    }
+
+    .mensaje_central p{
+        font-size: 14px;
+    }
+    .bienvenida{
+        padding-left: 3px;
+        height: 16px;
+    }
+    .div_central{
+        height: 75vh;
+    }
+    .bienvenida p{
+        padding: 0px;
+        font-size: 14px;
+        padding-bottom: 6px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 7.5px 15px;
+        font-size: 14px;
+    }
+}
+
+/* @media (min-width: 450px) and (min-height: 278px) {
+    .bienvenida{
+        height: 10vh;
+    }
+    .div_central{
+        height: 73vh;
+    }
+} */
+
+
+@media (min-width: 700px) and (min-height: 500px) {
+
+    .mensaje_central h1{
+        font-size: 36px;
+        /* background-color: blueviolet; */
+    }
+
+    .mensaje_central p{
+        font-size: 16px;
+    }
+    .bienvenida{
+        /* padding-top: 3px; */
+        padding-left: 3px;
+        /* font-size: 18px; */
+        height: 30px;
+        /* background-color: blueviolet; */
+    }
+    .div_central{
+        height: 83vh;
+    }
+    .bienvenida p{
+        padding: 0px;
+        font-size: 16px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+}
+
+@media ((min-width: 700px) and (min-height: 340px) and (max-height: 500px)) or ((min-width: 450px) and (min-height: 340px)) and (max-width: 1000px) {
+
+    .bienvenida{
+        padding: 0;
+        padding-left: 3px;
+        /* font-size: 18px; */
+        height: 50px;
+        /* background-color: blueviolet; */
+    }
+    .mensaje_central h1{
+        font-size: 36px;
+        /* background-color: blueviolet; */
+    }
+
+    .mensaje_central p{
+        font-size: 16px;
+    }
+    .div_central{
+        height: 83vh;
+    }
+    .bienvenida p{
+        padding: 0px;
+        /* padding-top: 9px; */
+        font-size: 16px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 5px 10px;
+        font-size: 16px;
+    }
+}
+
+@media (((min-width: 700px) and (min-height: 580px)) or ((min-width: 450px) and (min-height: 500px))) {
+
+    .bienvenida{
+        padding: 0;
+        padding-left: 8px;
+        /* font-size: 18px; */
+        height: 65px;
+        /* background-color: blueviolet; */
+    }
+    .mensaje_central h1{
+        font-size: 50px;
+        /* background-color: blueviolet; */
+    }
+
+    .mensaje_central p{
+        font-size: 20px;
+    }
+    .div_central{
+        height: 83vh;
+    }
+    .bienvenida p{
+        padding: 0px;
+        padding-bottom: 9px;
+        /* padding-top: 9px; */
+        font-size: 20px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 10px 20px;
+        font-size: 20px;
+    }
+}
+
+@media ((min-width: 1000px) and (min-height: 500px)) or ((min-width: 450px) and (min-height: 600px)) {
+
+    .bienvenida{
+        padding: 0;
+        padding-left: 8px;
+        /* font-size: 18px; */
+        height: 85px;
+        /* background-color: blueviolet; */
+    }
+    .mensaje_central h1{
+        font-size: 64px;
+        /* background-color: blueviolet; */
+    }
+
+    .mensaje_central p{
+        font-size: 24px;
+    }
+    .div_central{
+        height: 83vh;
+    }
+    .bienvenida p{
+        padding: 0px;
+        /* padding-bottom: 9px; */
+        /* padding-top: 9px; */
+        font-size: 24px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 10px 20px;
+        font-size: 24px;
+    }
+}
+
+
+@media ((min-width: 1000px) and (max-height: 500px)){
+
+    .bienvenida{
+        padding: 0;
+        padding-left: 8px;
+        /* font-size: 18px; */
+        height: 85px;
+        /* background-color: blueviolet; */
+    }
+    .mensaje_central h1{
+        font-size: 38px;
+        /* background-color: blueviolet; */
+    }
+
+    .mensaje_central p{
+        font-size: 20px;
+    }
+    .div_central{
+        height: 83vh;
+    }
+    .bienvenida p{
+        padding: 0px;
+        /* padding-bottom: 9px; */
+        /* padding-top: 9px; */
+        font-size: 20px;
+    }
+    .enlaces_central{
+        margin-top: 6px;
+        margin-bottom: 10px;
+    }
+
+    .enlaces_central a{
+        padding: 10px 20px;
+        font-size: 20px;
+    }
+}
+
+/* @media (max-width: 450px) {
+
+    .mensaje_central h1{
+        font-size: 16px;
+    }
+
+    .mensaje_central p{
+        font-size: 8px;
+    }
+    .bienvenida{
+        padding: 0;
+        font-size: 8px;
+        height: 9vh;
+    }
+    .div_central{
+        height: 74vh;
+    }
+    .bienvenida p{
+        padding: 6px
+    }
+    .enlaces_central{
+        margin-top: 6px;
+    }
+
+    .enlaces_central a{
+        padding: 5px 10px;
+        font-size: 8px;
+    }
+}
+
+
+@media (max-width: 260px) and (max-height: 226px) {
+     .main{
+        height: 104vh;
+     }
+     .bienvenida{
+         height: 19vh;
+     }
+     .bienvenida p{
+        margin-top: 5px;
+     }
+     .div_central{
+         height: 85vh;
+     }
+     .enlaces_central{
+        margin-bottom: 7px;
+     }
+} */
+
+/* @media (max-height: 200px) {
+    .main{
+       height: 104vh;
+    }
+    .bienvenida{
+        height: 19vh;
+    }
+    .bienvenida p{
+       margin-top: 5px;
+    }
+    .div_central{
+        height: 85vh;
+    }
+    .enlaces_central{
+        margin-bottom: 6px;
+    }
+} */

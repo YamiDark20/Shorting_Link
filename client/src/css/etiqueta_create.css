@@ -1,0 +1,81 @@
+.main_etiqueta_create{
+    padding: 0 0;
+    /* padding-right: 20px; */
+    display: flex;
+    /* flex: 1; */
+    /* height: 70vh;  */
+    width: 45vw;
+    background-color:#141414;
+    flex-direction: column;
+}
+
+.div_titulo_etiqueta_create{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    width: 100%;
+}
+
+.div_titulo_etiqueta_create svg{
+    width: 5%;
+    text-align: end;
+    background: none;
+    text-decoration: none;
+    border: none;
+    height: 30px;
+    margin-top: 20px;
+    color: currentColor;
+    /* height: 30px;
+    margin-top: 16px; */
+}
+
+.div_titulo_etiqueta_create svg:hover{
+    color: #888888;
+}
+
+
+.titulo_etiqueta_create{
+    font-size: 28px;
+    text-decoration: underline;
+    font-weight: bolder;
+    padding: 0 0;
+    margin: 0;
+    margin-top: 16px;
+    width: 95%;
+}
+
+.main_etiqueta_create p{
+    font-size: 26px;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.main_etiqueta_create input{
+    height: 30px;
+    border-radius: 8px;
+    font-size: 20px;
+    background-color: #262626;
+    color: currentColor;
+    border-color: #cccccc29;
+}
+
+.opciones_etiqueta_create{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.opciones_etiqueta_create button{
+    font-size: 20px;
+    width: 20%;
+    height: 38px;
+    border-radius: 8px;
+    color: currentColor;
+    background-color: #5d5d5d;
+}
+
+.opciones_etiqueta_create button:hover{
+    background-color: #6d6d6d;
+}

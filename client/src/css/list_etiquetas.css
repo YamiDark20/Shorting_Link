@@ -1,0 +1,127 @@
+.main_etiquetas{
+    position: fixed;
+    z-index: 10;
+    top: 12rem /* 44px */;
+    right: 9rem /* 8px */;
+    padding: 0.5rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    --tw-translate-x: -25%;
+    width: 300px;
+    height: 290px;
+    color: currentColor;
+    background: #eef7ff;
+    border-radius: 5%;
+    border: 2px solid #b0b0b0;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), -2px -2px 4px rgba(0, 0, 0, 0.2), 7px 7px 14px rgba(0, 0, 0, 0.1);
+    justify-items: center;
+    align-items: center;
+    /* align-content: center;
+    justify-content: center; */
+    opacity: 1;
+}
+
+.main_etiquetas.dark{
+    background: #1a1a1a;
+}
+
+.titulo_etiqueta{
+    font-size: 24px;
+    padding: 0;
+    margin: 0.5rem 0;
+    text-align: center;
+    height: 30px;
+}
+
+.list-etiquetas{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 160px;
+    margin-bottom: 3px;
+    border: 2px solid #b0b0b0;
+}
+
+.sin_etiquetas{
+    width: 100%;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sin_etiquetas svg{
+    height: 60px;
+}
+
+.row-etiquetas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 5%;
+    border: 2px solid #b0b0b0;
+    padding: 8px 0;
+    margin: 0;
+}
+
+.row-etiquetas p{
+    font-size: 18px;
+    width: 80%;
+    padding: 0px;
+    margin: 0;
+}
+
+.row-etiquetas svg{
+    height: 24px;
+    /* width: 20%; */
+}
+
+.row-etiquetas svg:hover, .row-etiquetas p:hover{
+    color: #888888;
+}
+
+.btn-etiquetas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* border-radius: 5%; */
+    /* border: 2px solid #b0b0b0; */
+    padding: 8px 0;
+    height: 60px;
+}
+
+.btn-etiquetas button{
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px;
+    color: currentColor;
+    background-color: #5d5d5d;
+    width: 50%;
+}
+
+
+.btn-etiquetas button svg{
+    height: 18px;
+}
+
+
+.btn-etiquetas button:hover{
+    background-color: #6d6d6d;
+}
+
+.btn-etiquetas button.light{
+    background-color: #1c1c1c;
+    border: 2px solid #b0b0b0;
+    color: #eef7ff;
+    border-radius: 4px;
+}
+
+.btn-etiquetas button.light:hover{
+    background-color: #3d3d3d;
+}
