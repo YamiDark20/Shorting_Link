@@ -14,23 +14,23 @@ export const fetchAllCategoriaLinks = createAsyncThunk('etiqueta_links/fetchAllC
     }
 });
 
-// export const addEtiquetaUser = createAsyncThunk('etiquetas_user/addEtiquetaUser', async (info_user) => {
+// export const addEtiquetaLink = createAsyncThunk('etiquetas_link/addEtiquetaLink', async (info_link) => {
 //     try{
-//         console.log(info_user, "infooll")
-//         const etiquetas_user = await createEtiquetaUser({
-//             "user_id": info_user.user_id,
-//             "etiqueta": info_user.etiqueta,
+//         console.log(info_link, "infoollw")
+//         const etiquetas_link = await createEtiquetaLink({
+//             "link_id": info_user.link_id,
+//             "categoria_id": info_user.categoria_id,
 //         });
-//         //   console.log(etiquetas_user, "infooll")
-//         if(etiquetas_user.data.id == undefined){
+//         // console.log(etiquetas_link.data, "maoooall")
+//         if(etiquetas_link.data.id == undefined){
 //             let mensaje_error = "";
-//             for (const key in etiquetas_user.data) {
+//             for (const key in etiquetas_link.data) {
 //                 // console.log(etiquetas_user.data[key], "maoooall")
-//                 mensaje_error += etiquetas_user.data[key][0];
+//                 mensaje_error += etiquetas_link.data[key][0];
 //             }
 //             throw new Error(mensaje_error);
 //         }
-//         return etiquetas_user.data;
+//         return etiquetas_link.data;
 //     } catch (error) {
 //         console.log(error, "error")
 //         throw new Error(error);
@@ -70,10 +70,10 @@ const etiquetaLinksSlice = createSlice({
             state.status_etiqueta_links = 'failed';
             state.error = action.error.message;
         })
-        // .addCase(addEtiquetaUser.fulfilled, (state, action) => {
-        //     state.etiquetas_user.push(action.payload);
+        // .addCase(addEtiquetaLink.fulfilled, (state, action) => {
+        //     state.etiqueta_links.push(action.payload);
         // })
-        // .addCase(addEtiquetaUser.rejected, (state, action) => {
+        // .addCase(addEtiquetaLink.rejected, (state, action) => {
         //     state.error = action.error.message;
         // })
         // .addCase(deleteSelectedEtiqueta.fulfilled, (state, action) => {

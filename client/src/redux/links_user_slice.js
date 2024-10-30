@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getLinksUser, createLinksUser, deleteLinksUser } from '../api/links_user.api'
+import { createEtiquetaLink } from '../api/etiqueta_links.api'
 
 export const fetchAllLinksUser = createAsyncThunk('links_user/fetchAllLinksUser', async (info_user) => {
     try{
@@ -33,6 +34,22 @@ export const addLinkUser = createAsyncThunk('links_user/addLinkUser', async (inf
             }
             throw new Error(mensaje_error);
         }
+
+        if(info_user.categoria_id != -1){
+            const etiquetas_link = await createEtiquetaLink({
+            "link_id": links_user.data.id,
+            "categoria_id": info_user.categoria_id,
+            });
+            // console.log(etiquetas_link.data, "maoooall")
+            if(etiquetas_link.data.id == undefined){
+                let mensaje_error = "";
+                for (const key in etiquetas_link.data) {
+                    // console.log(etiquetas_user.data[key], "maoooall")
+                    mensaje_error += etiquetas_link.data[key][0];
+                }
+                throw new Error(mensaje_error);
+            }
+        }
         return links_user.data;
     } catch (error) {
         console.log(error, "error")
@@ -50,7 +67,8 @@ const linksUserSlice = createSlice({
   initialState: {
     links_user: [],
     status_links_user: 'idle',
-    error: null
+    error: null,
+    // id_link_create: -1
   },
   reducers: {
     // set_User: (state, action) => {
@@ -74,6 +92,7 @@ const linksUserSlice = createSlice({
         })
         .addCase(addLinkUser.fulfilled, (state, action) => {
             state.links_user.push(action.payload);
+            // state.id_link_create = action.payload["id"]
         })
         .addCase(addLinkUser.rejected, (state, action) => {
             state.error = action.error.message;

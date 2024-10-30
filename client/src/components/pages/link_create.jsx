@@ -2,15 +2,17 @@ import "../../css/link_create.css";
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addLinkUser } from "../../redux/links_user_slice";
+// import { addEtiquetaLink } from "../../redux/etiqueta_links_slice";
 import { fetchAllCategoriasUser } from "../../redux/etiquetas_user_slice";
 
 export const LinkCreatePage = ({toast, t, setIsToastVisible, id_user}) => {
     const dispatch = useDispatch();
-    // const {links_user, status_links_user, error} = useSelector((state) => state.links_user);
+    // const {id_link_create} = useSelector((state) => state.links_user);
     const {etiquetas_user, status_etiquetas_user, error} = useSelector((state) => state.etiquetas_user);
     const [short_link, setShortLink] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [link_original, setLinkOriginal] = useState("");
+    const [categoria_id, setCategoriaId] = useState(-1);
 
     useEffect(() => {
         if(etiquetas_user.length == 0 && status_etiquetas_user == 'idle'){
@@ -85,9 +87,32 @@ export const LinkCreatePage = ({toast, t, setIsToastVisible, id_user}) => {
                 "short_link": short_link,
                 "user_id": id_user,
                 "descripcion": descripcion,
-                "link_original": link_original
+                "link_original": link_original,
+                "categoria_id": categoria_id
             })).unwrap()
             .then(() => {
+                // dispatch(addEtiquetaLink({
+                //     "categoria_id": categoria_id,
+                //     "link_id": link_original
+                // })).unwrap()
+                // .then(() => {
+                //     toast.success("Se ha creado correctamente el link acortado.", {
+                //     position: 'bottom-right',
+                //         style: getErrorToastStyles(window.innerWidth),
+                //         className: 'toast'
+                //     })
+                //     setIsToastVisible(false)
+                //     toast.dismiss(t.id)
+                // })
+                // .catch((error) => {
+                //     console.log(error)
+                //     toast.error(error.message, {
+                //         duration: 600,
+                //         position: 'bottom-right',
+                //         style: getErrorToastStyles(window.innerWidth)
+                //     })
+                // });
+                // console.log(id_link_create, "skdidooml")
                 toast.success("Se ha creado correctamente el link acortado.", {
                 position: 'bottom-right',
                     style: getErrorToastStyles(window.innerWidth),
@@ -146,7 +171,7 @@ export const LinkCreatePage = ({toast, t, setIsToastVisible, id_user}) => {
             {etiquetas_user.length == 0 ? <h2 className='label_no_existe_tag_create'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M17.868 4.504A1 1 0 0 0 17 4H3a1 1 0 0 0-.868 1.496L5.849 12l-3.717 6.504A1 1 0 0 0 3 20h14a1 1 0 0 0 .868-.504l4-7a1 1 0 0 0 0-.992zM16.42 18H4.724l3.145-5.504a1 1 0 0 0 0-.992L4.724 6H16.42l3.429 6z"/></svg> No existe ninguna etiqueta creada</h2>: (
                 <div>
                     <p className='label_short_link_create'>Añada una etiqueta al link</p>
-                    <select name="" id="">
+                    <select name="" id="" value={categoria_id} onChange={async (e) => { setCategoriaId(e.target.value) }}>
                         <option value={-1}>Seleccione una etiqueta</option>
                         {etiquetas_user.map(etiqueta_user => (
                             <option value={etiqueta_user.id}>{etiqueta_user.etiqueta}</option>
