@@ -3,6 +3,7 @@ import SimpleLineIconsOptions from '../../svg/SimpleLineIconsOptions.svg';
 import "../../css/dashboard.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllLinksUser } from "../../redux/links_user_slice";
+import { getInfoLinkOfEtiqueta } from "../../api/etiqueta_links.api";
 import {LinkCreatePage} from './link_create'
 import {LinkDeletePage} from './link_delete'
 import {ListEtiquetas} from './list_etiquetas'
@@ -99,6 +100,62 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
         );
     };
 
+    const actualizar_link = async (link_id_update) => {
+        try {
+            const res = await getInfoLinkOfEtiqueta({"link_id": link_id_update})
+            // console.log(res.data, "maoooall")
+            if(res.data.length == 0){
+                let mensaje_error = "";
+                for (const key in res.data) {
+                    // console.log(etiquetas_user.data[key], "maoooall")
+                    mensaje_error += res.data[key][0];
+                }
+                throw new Error(mensaje_error);
+            }else{
+                // console.log(res.data, "maoooall")
+                setIsToastVisible(true);
+                return toast(
+                    (t) => (
+                        <LinkCreatePage toast={toast} t={t} setIsToastVisible={setIsToastVisible} id_user={users[0].id} info_link={res.data[0]} />
+                    ),
+                    {
+                        duration: Infinity,
+                        style: {
+                            position: "relative",
+                            top: "14vh",
+                            // right: "30vw",
+                            backgroundColor: '#141414',
+                            color: "#fff",
+                            width: "65vw", // Establece el ancho deseado
+                            maxWidth: "90%", // Asegúrate de que el toast no exceda el ancho de la pantalla
+                            height:'0%',
+                    }}
+                );
+            }
+        } catch (error) {
+            // error_login = true
+            console.log(error.data, "eroeodkdkll")
+        }
+        // setIsToastVisible(true);
+        // return toast(
+        //     (t) => (
+        //         <LinkCreatePage toast={toast} t={t} setIsToastVisible={setIsToastVisible} id_user={users[0].id} />
+        //     ),
+        //     {
+        //         duration: Infinity,
+        //         style: {
+        //             position: "relative",
+        //             top: "14vh",
+        //             // right: "30vw",
+        //             backgroundColor: '#141414',
+        //             color: "#fff",
+        //             width: "65vw", // Establece el ancho deseado
+        //             maxWidth: "90%", // Asegúrate de que el toast no exceda el ancho de la pantalla
+        //             height:'0%',
+        //     }}
+        // );
+    };
+
 
 
     const delete_link = (info_link) => {
@@ -152,7 +209,7 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
                                     })
                                 }}><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M7 9.667A2.667 2.667 0 0 1 9.667 7h8.666A2.667 2.667 0 0 1 21 9.667v8.666A2.667 2.667 0 0 1 18.333 21H9.667A2.667 2.667 0 0 1 7 18.333z"/><path d="M4.012 16.737A2 2 0 0 1 3 15V5c0-1.1.9-2 2-2h10c.75 0 1.158.385 1.5 1"/></g></svg>
 
-                                <svg xmlns="http://www.w3.org/2000/svg" className={`icon_option_link ${theme == 'light' ? "light": "dark"}`} viewBox="0 0 24 24"><path fill="currentColor" d="m9.25 22l-.4-3.2q-.325-.125-.612-.3t-.563-.375L4.7 19.375l-2.75-4.75l2.575-1.95Q4.5 12.5 4.5 12.338v-.675q0-.163.025-.338L1.95 9.375l2.75-4.75l2.975 1.25q.275-.2.575-.375t.6-.3l.4-3.2h5.5l.4 3.2q.325.125.613.3t.562.375l2.975-1.25l2.75 4.75l-2.575 1.95q.025.175.025.338v.674q0 .163-.05.338l2.575 1.95l-2.75 4.75l-2.95-1.25q-.275.2-.575.375t-.6.3l-.4 3.2zM11 20h1.975l.35-2.65q.775-.2 1.438-.587t1.212-.938l2.475 1.025l.975-1.7l-2.15-1.625q.125-.35.175-.737T17.5 12t-.05-.787t-.175-.738l2.15-1.625l-.975-1.7l-2.475 1.05q-.55-.575-1.212-.962t-1.438-.588L13 4h-1.975l-.35 2.65q-.775.2-1.437.588t-1.213.937L5.55 7.15l-.975 1.7l2.15 1.6q-.125.375-.175.75t-.05.8q0 .4.05.775t.175.75l-2.15 1.625l.975 1.7l2.475-1.05q.55.575 1.213.963t1.437.587zm1.05-4.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5M12 12"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" className={`icon_option_link ${theme == 'light' ? "light": "dark"}`} viewBox="0 0 24 24" onClick={() => actualizar_link(link_user.id)}><path fill="currentColor" d="m9.25 22l-.4-3.2q-.325-.125-.612-.3t-.563-.375L4.7 19.375l-2.75-4.75l2.575-1.95Q4.5 12.5 4.5 12.338v-.675q0-.163.025-.338L1.95 9.375l2.75-4.75l2.975 1.25q.275-.2.575-.375t.6-.3l.4-3.2h5.5l.4 3.2q.325.125.613.3t.562.375l2.975-1.25l2.75 4.75l-2.575 1.95q.025.175.025.338v.674q0 .163-.05.338l2.575 1.95l-2.75 4.75l-2.95-1.25q-.275.2-.575.375t-.6.3l-.4 3.2zM11 20h1.975l.35-2.65q.775-.2 1.438-.587t1.212-.938l2.475 1.025l.975-1.7l-2.15-1.625q.125-.35.175-.737T17.5 12t-.05-.787t-.175-.738l2.15-1.625l-.975-1.7l-2.475 1.05q-.55-.575-1.212-.962t-1.438-.588L13 4h-1.975l-.35 2.65q-.775.2-1.437.588t-1.213.937L5.55 7.15l-.975 1.7l2.15 1.6q-.125.375-.175.75t-.05.8q0 .4.05.775t.175.75l-2.15 1.625l.975 1.7l2.475-1.05q.55.575 1.213.963t1.437.587zm1.05-4.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5M12 12"/></svg>
 
                                 <svg xmlns="http://www.w3.org/2000/svg" className={`icon_option_link ${theme == 'light' ? "light": "dark"}`} viewBox="-3 -2 24 24"  onClick={() => {
                                     delete_link({

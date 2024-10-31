@@ -33,6 +33,7 @@ Route::get('/categoria/links', [Categoria_LinkController::class, 'index']);
 Route::post('/categoria/links', [Categoria_LinkController::class, 'store']);
 Route::get('/categoria/links/{id}', [Categoria_LinkController::class, 'show_info_full']);
 Route::get('/categoria/links/list/{id}', [Categoria_LinkController::class, 'show_links_of_categoria']);
+Route::get('/categoria/links/get/{link_id}', [Categoria_LinkController::class, 'show_info_link']);
 
 Route::get('/categoria/users', [Categoria_UserController::class, 'index']);
 Route::post('/categoria/users', [Categoria_UserController::class, 'store']);

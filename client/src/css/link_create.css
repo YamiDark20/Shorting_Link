@@ -71,6 +71,7 @@
     border-radius: 8px;
     font-size: 20px;
     background-color: #262626;
+    width: 100%;
     color: currentColor;
     border-color: #cccccc29;
 }

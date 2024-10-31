@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getLinksUser, createLinksUser, deleteLinksUser } from '../api/links_user.api'
+import { getLinksUser, createLinksUser, updateLinksUser, deleteLinksUser, getInfoLinkUser } from '../api/links_user.api'
 import { createEtiquetaLink } from '../api/etiqueta_links.api'
 
 export const fetchAllLinksUser = createAsyncThunk('links_user/fetchAllLinksUser', async (info_user) => {
@@ -57,6 +57,35 @@ export const addLinkUser = createAsyncThunk('links_user/addLinkUser', async (inf
     }
 });
 
+export const updatingLinkUser = createAsyncThunk('links_user/updatingLinkUser', async (info_user) => {
+    try{
+        const links_user = await updateLinksUser({
+            "id": info_user.id,
+            "short_link_anterior": info_user.short_link_anterior,
+            "user_id": info_user.user_id,
+            "short_link": info_user.short_link,
+            "descripcion": info_user.descripcion,
+            "link_original": info_user.link_original,
+        });
+        if(Object.keys(links_user.data).length != 4){
+            let mensaje_error = "";
+            for (const key in links_user.data) {
+                mensaje_error += links_user.data[key][0];
+            }
+            throw new Error(mensaje_error);
+        }
+
+        const res = await getInfoLinkUser({
+            "id_user": info_user.user_id,
+            "short_link": info_user.short_link,
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error, "error")
+        throw new Error(error);
+    }
+});
+
 export const deleteSelectedLink = createAsyncThunk('links_user/deleteSelectedLink', async (info_user) => {
     await deleteLinksUser(info_user);
     return info_user;
@@ -92,18 +121,19 @@ const linksUserSlice = createSlice({
         })
         .addCase(addLinkUser.fulfilled, (state, action) => {
             state.links_user.push(action.payload);
-            // state.id_link_create = action.payload["id"]
         })
         .addCase(addLinkUser.rejected, (state, action) => {
             state.error = action.error.message;
         })
-    //   .addCase(updateExistingMaestria.fulfilled, (state, action) => {
-    //     const index = state.maestrias.findIndex((maestria) => maestria.codmaestria === action.payload.codmaestria);
-    //     state.maestrias[index] = action.payload;
-    //   })
-    //   .addCase(updateExistingMaestria.rejected, (state, action) => {
-    //     state.error = action.error.message;
-    //   })
+        .addCase(updatingLinkUser.fulfilled, (state, action) => {
+            const index = state.links_user.findIndex((link) => link.id == action.payload.id);
+            console.log(state.links_user[index], action.payload, index, state.links_user)
+
+            state.links_user[index] = action.payload;
+        })
+        .addCase(updatingLinkUser.rejected, (state, action) => {
+            state.error = action.error.message;
+        })
         .addCase(deleteSelectedLink.fulfilled, (state, action) => {
             state.links_user = state.links_user.filter((link_user) => link_user.id !== action.payload.id);
         });

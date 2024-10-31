@@ -29,7 +29,12 @@ export const createLinksUser = (infolinks) => {
 // }
 
 export const updateLinksUser = (infolinks) => {
-    return linksUserAPI.put('/' + infolinks.id_user + '/' + infolinks.short_link, infolinks)
+    return linksUserAPI.put('/' + infolinks.user_id + '/' + infolinks.short_link_anterior, {
+        "short_link": infolinks.short_link,
+        "user_id": infolinks.user_id,
+        "descripcion": infolinks.descripcion,
+        "link_original": infolinks.link_original,
+    })
 }
 
 export const deleteLinksUser = (infolinks) => { // use

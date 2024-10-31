@@ -85,4 +85,27 @@ class Categoria_LinkController extends Controller
         }
         return $categorias_user;
     }
+
+    public function show_info_link(int $link_id){
+        $validator = Validator::make([
+            'link_id' => $link_id,
+        ],[
+            'link_id' => ['required', 'integer', "exists:linksusers,id"]
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        // $categorias_user = Categoria_User::where('user_id', $id_user)->get();
+
+        // $categorias_user = Linksuser::join('categoria_links', 'linksusers.id', '=', 'categoria_links.link_id')
+        //         ->join('categoria_users', 'categoria_links.categoria_id', '=', 'categoria_users.id')
+        //         ->select('linksusers.short_link', 'linksusers.link_original', 'linksusers.user_id', 'categoria_users.etiqueta', 'categoria_links.categoria_id', 'linksusers.descripcion')
+        //         ->get();
+        $categorias_user = Linksuser::where('linksusers.id', $link_id)->join('categoria_links', 'categoria_links.link_id', '=', 'linksusers.id')->select('categoria_links.link_id', 'categoria_links.categoria_id', 'linksusers.short_link', 'linksusers.link_original', 'linksusers.user_id', 'linksusers.descripcion', 'linksusers.created_at')
+        ->get();
+        if(sizeof($categorias_user) == 0){
+            return response()->json(['message' => 'No se ha encontrado ninguna categoria que pertenezca a el usuario con id ' . $link_id], 404);
+        }
+        return $categorias_user;
+    }
 }
