@@ -252,7 +252,7 @@ export const LinkCreatePage = ({toast, t, setIsToastVisible, id_user, info_link}
             }} />
             <p className='label_short_link_create'>Descripción</p>
             <textarea name="" id="" rows={4} placeholder="Ingrese una descripcion" value={descripcion} onChange={(e) => {
-                const regex_short_link = /^[a-zA-Z0-9-_,.]+$/;
+                const regex_short_link = /^[a-zA-Z0-9\s-_,.]+$/;
                 if(regex_short_link.test(e.target.value)){
                     setDescripcion(e.target.value)
                 }
