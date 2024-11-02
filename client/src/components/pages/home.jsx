@@ -1,10 +1,37 @@
 import "../../css/home.css";
+import { useEffect, useState } from 'react'
 // import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
-// import { set_User } from "../../redux/user_slice";
+import { getAuthUser } from "../../api/auth_user.api";
 export const HomePage = ({theme}) => {
 
     const navigate = useNavigate();
+    const [loginUrl, setLoginUrl] = useState(null);
+
+    useEffect(() => {
+        async function loadURLAuth(){
+            // if(tiposcoordinador.length == 0){
+                const res = await getAuthUser();
+                setLoginUrl(res.data.url);
+                console.log(res.data)
+            // }
+        }
+        loadURLAuth()
+        // fetch('http://localhost:80/api/auth', {
+        //     headers : {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json'
+        //     }
+        // })
+        //     .then((response) => {
+        //         if (response.ok) {
+        //             return response.json();
+        //         }
+        //         throw new Error('Something went wrong!');
+        //     })
+        //     .then((data) => setLoginUrl( data.url ))
+        //     .catch((error) => console.error(error));
+    }, []);
     // const dispatch = useDispatch();
     // const {users} = useSelector((state) => state.user);
     return (
@@ -19,7 +46,7 @@ export const HomePage = ({theme}) => {
                     <p>ShortURL crea enlaces cortos personalizados con facilidad. Nuestra plataforma open-source te brinda control total sobre tus links.</p>
                 </div>
                 <div className="enlaces_central">
-                    <a href="" className="create_link">Crear un link</a>
+                    <a href={loginUrl} className="create_link">Crear un link</a>
                     <a href="" className="codigo">Codigo Fuente</a>
                 </div>
             </div>

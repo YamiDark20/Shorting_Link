@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Categoria_LinkController;
 use App\Http\Controllers\Categoria_UserController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LinksuserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,9 @@ use App\Http\Controllers\UserController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::get('auth', [GoogleController::class, 'redirectToAuth']);
+Route::get('auth/callback', [GoogleController::class, 'handleAuthCallback']);
 
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);
