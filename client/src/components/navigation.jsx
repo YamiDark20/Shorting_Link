@@ -13,12 +13,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { set_User } from "../redux/user_slice";
 import { useRef, useEffect, useState } from 'react';
-export const NavegationPage = ({btnTema, setBtnTema, btnUser, setBtnUser, setTheme, isToastVisible}) => {
+import Cookies from 'js-cookie';
+import { UserOptions } from './pages/user_opciones';
+export const NavegationPage = ({btnTema, setBtnTema, btnUser, setBtnUser, setTheme, theme, isToastVisible, setIsToastVisible}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {users, token} = useSelector((state) => state.user);
     const [loginUrl, setLoginUrl] = useState(null);
     const divNavRef = useRef(null);
+    const [isUserOptionVisible, setIsUserOptionVisible] = useState(false);
+
     useEffect(() => {
         async function loadURLAuth(){
             // if(tiposcoordinador.length == 0){
@@ -27,7 +31,7 @@ export const NavegationPage = ({btnTema, setBtnTema, btnUser, setBtnUser, setThe
                 console.log(res.data)
             // }
         }
-        console.log(token, "jskkdkdk")
+        console.log(token, "jskkdkdk", theme)
         loadURLAuth()
     }, []);
     const handleClickOutside = (event) => {
@@ -65,14 +69,21 @@ export const NavegationPage = ({btnTema, setBtnTema, btnUser, setBtnUser, setThe
                         <img src={FluentDarkTheme20Filled} className={`icon`} />
                         <p>Tema</p>
                     </button>
-                    <button type="button">
+                    <button type="button" onClick={() => {
+                        Cookies.remove('name')
+                        Cookies.remove('email')
+
+                        Cookies.remove('id_user')
+                        Cookies.remove('token')
+                        console.log(Cookies.get('token'))
+                    }}>
                         <img src={BiGithub} className={`icon `} />
                         <p>Git</p>
                     </button>
-                    {token == "" ? <a href={loginUrl}>
+                    {Cookies.get("token") === undefined ? <a href={loginUrl}>
                         <img src={MaterialSymbolsArrowCircleRightRounded} className={`icon `} />
                         <p>Iniciar Sesion</p>
-                    </a>:<button type="button" onClick={() => getUser()}>
+                    </a>:<button type="button" onClick={() => setIsUserOptionVisible(true)}>
                         <img src={PhUserCircleBold} className={`icon `} />
                         <p>User</p>
                     </button>}
@@ -86,6 +97,7 @@ export const NavegationPage = ({btnTema, setBtnTema, btnUser, setBtnUser, setThe
                     </button> */}
                 </nav>
             </div>
+            {isUserOptionVisible ? <UserOptions setIsUserOptionVisible={setIsUserOptionVisible} isUserOptionVisible={isUserOptionVisible} theme={theme}  setIsToastVisible={setIsToastVisible}></UserOptions>:null}
             {/* <div className={`fixed z-10 top-11 right-2 transform -translate-x-1/4 max-[600px]:w-[110px] max-[600px]:top-8 max-[600px]:-translate-x-1/4 max-[600px]:right-1 lg:top-12 lg:right-0 w-300 h-200 text-sky-100 bg-slate-700 rounded-lg min-[1250px]:rounded-xl min-[1250px]:top-16 min-[1250px]:p-2 max-[328px]:w-[85px] max-[328px]:top-6 max-[328px]:right-2`}></div> */}
             { btnTema
                 ? <div className={`mensajeTema ${btnTema ? "active" : ""}`} ref={divNavRef}>

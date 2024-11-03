@@ -13,6 +13,7 @@ import '../src/css/footer.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import GoogleCallback from './components/pages/GoogleCallback';
+import { DashboardPage } from './components/pages/dashboard';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -50,16 +51,16 @@ function App() {
 
     return (
         <BrowserRouter className={``}>
-            <NavegationPage btnTema={btnTema} setBtnTema={setBtnTema} btnUser={btnUser} setBtnUser={setBtnUser} setTheme={setTheme} isToastVisible={isToastVisible} />
+            <NavegationPage btnTema={btnTema} setBtnTema={setBtnTema} btnUser={btnUser} setBtnUser={setBtnUser} setTheme={setTheme} isToastVisible={isToastVisible} theme={theme} />
             <div className="container">
                 <Routes>
-                    {
+                    {/* {
                         token != ""
                             ? <Route path="/*" element={<AutenticadoRoutes theme={theme} isToastVisible={isToastVisible} setIsToastVisible={setIsToastVisible} />} />
                             : <Route path="/*" element={<HomePage theme={theme} />} />
-                        }
+                        } */}
                         <Route path='*' element={<Navigate to='/' replace />} />
-                        <Route path="/auth/google" element={<GoogleCallback />}></Route>
+                        <Route path="/dashboard" element={<DashboardPage theme={theme} isToastVisible={isToastVisible} setIsToastVisible={setIsToastVisible} />}></Route>
 
                 </Routes>
                 <footer className={`${theme == 'light' ? "light": "dark"} ${isToastVisible ? "active": ""}`}>

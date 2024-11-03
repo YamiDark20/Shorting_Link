@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import { authCallbackUser, logoutUser } from '../../api/auth_user.api';
+import Cookies from 'js-cookie';
 import { set_User, vaciar_User, fetchAuthCallbackUser } from "../../redux/user_slice";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -17,24 +18,48 @@ function GoogleCallback() {
     // On page load, we take "search" parameters
     // and proxy them to /api/auth/callback on our Laravel API
     useEffect(() => {
-        dispatch(fetchAuthCallbackUser({
-            "located": location.search
-        })).unwrap()
-        .then(() => {
-            // setData(users);
-            setLoading(false);
-        });
-        // async function loadURLAuth(){
-        //         const res = await authCallbackUser({
-        //             "located": location.search
-        //         });
-        //         dispatch(set_User(res.data));
-        //         setLoading(false);
-        //         setData(res.data);
-        //         console.log(res.data);
-        //     // }
-        // }
-        // loadURLAuth()
+        // dispatch(fetchAuthCallbackUser({
+        //     "located": location.search
+        // })).unwrap()
+        // .then(() => {
+        //     // setData(users);
+        //     setLoading(false);
+        // });
+        async function loadURLAuth(){
+            if(Cookies.get('id_user') === undefined){
+                const res = await authCallbackUser({
+                    "located": location.search
+                });
+
+
+                Cookies.set('name', res.data.user.name, {
+                    secure: true,
+                    sameSite: 'strict',
+                    expires: 1
+                })
+                Cookies.set('email', res.data.user.email, {
+                    secure: true,
+                    sameSite: 'strict',
+                    expires: 1
+                })
+
+                Cookies.set('id_user', res.data.user.id, {
+                    secure: true,
+                    sameSite: 'strict',
+                    expires: 1
+                })
+                Cookies.set('token', res.data.access_token, {
+                    secure: true,
+                    sameSite: 'strict',
+                    expires: 1
+                })
+                dispatch(set_User(res.data));
+                setLoading(false);
+                setData(res.data);
+                console.log(res.data);
+            }
+        }
+        loadURLAuth()
 
 
         // fetch(`http://127.0.0.1:8000/api/auth/callback${location.search}`, {
@@ -59,7 +84,7 @@ function GoogleCallback() {
             headers : {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + data.access_token,
+                'Authorization': 'Bearer ' + Cookies.get("token"),
             }
         })
             .then((response) => {
@@ -78,7 +103,7 @@ function GoogleCallback() {
             //     }
             // });
             const res = await logoutUser({
-                "token": token
+                "token": Cookies.get("token")
             });
             dispatch(vaciar_User())
             // Elimina el token del almacenamiento local o del estado
