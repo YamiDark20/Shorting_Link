@@ -6,16 +6,30 @@ import BiGithub from '../svg/BiGithub.svg';
 import IlUrl from '../svg/IlUrl.svg';
 import MaterialSymbolsLightMode from '../svg/MaterialSymbolsLightMode.svg';
 import MaterialSymbolsDarkModeOutlineRounded from '../svg/MaterialSymbolsDarkModeOutlineRounded.svg';
+import MaterialSymbolsArrowCircleRightRounded from '../svg/MaterialSymbolsArrowCircleRightRounded.svg';
+import { getAuthUser } from "../api/auth_user.api";
 // import FlowbiteFaceGrinSolid from '../svg/FlowbiteFaceGrinSolid.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { set_User } from "../redux/user_slice";
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 export const NavegationPage = ({btnTema, setBtnTema, btnUser, setBtnUser, setTheme, isToastVisible}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {users} = useSelector((state) => state.user);
+    const {users, token} = useSelector((state) => state.user);
+    const [loginUrl, setLoginUrl] = useState(null);
     const divNavRef = useRef(null);
+    useEffect(() => {
+        async function loadURLAuth(){
+            // if(tiposcoordinador.length == 0){
+                const res = await getAuthUser();
+                setLoginUrl(res.data.url);
+                console.log(res.data)
+            // }
+        }
+        console.log(token, "jskkdkdk")
+        loadURLAuth()
+    }, []);
     const handleClickOutside = (event) => {
         // Verifica si el clic fue fuera del mensaje
         if (divNavRef.current && !divNavRef.current.contains(event.target)) {
@@ -34,7 +48,7 @@ export const NavegationPage = ({btnTema, setBtnTema, btnUser, setBtnUser, setThe
     }, []);
 
     const getUser = () => {
-        dispatch(set_User({"id": 1, "name": "Marialejandra Kasmin Moya", "email": "mariale_moya2002@gmail.com", "token": "63y63687eh37tte6377te73"}));
+        dispatch(set_User({"user": {"id": 1, "name": "Marialejandra Kasmin Moya", "email": "mariale_moya2002@gmail.com"}, "access_token": "63y63687eh37tte6377te73", "token_type": "Bearer"}));
         setBtnUser(!btnUser)
         navigate('/dashboard')
     }
@@ -55,10 +69,13 @@ export const NavegationPage = ({btnTema, setBtnTema, btnUser, setBtnUser, setThe
                         <img src={BiGithub} className={`icon `} />
                         <p>Git</p>
                     </button>
-                    <button type="button" onClick={() => getUser()}>
+                    {token == "" ? <a href={loginUrl}>
+                        <img src={MaterialSymbolsArrowCircleRightRounded} className={`icon `} />
+                        <p>Iniciar Sesion</p>
+                    </a>:<button type="button" onClick={() => getUser()}>
                         <img src={PhUserCircleBold} className={`icon `} />
                         <p>User</p>
-                    </button>
+                    </button>}
                     {/* <button type="button">
                         <img src={OcticonProject} className={`icon `} />
                         <p>Proyectos</p>

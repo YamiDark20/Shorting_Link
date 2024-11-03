@@ -15,6 +15,8 @@ use Illuminate\Http\JsonResponse;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class GoogleController extends Controller
 {
@@ -51,12 +53,27 @@ class GoogleController extends Controller
                     // 'avatar' => $socialiteUser->getAvatar(),
                 ]
             );
+            // print($user);
 
         return response()->json([
             'user' => $user,
             'access_token' => $user->createToken('token')->plainTextToken,
             'token_type' => 'Bearer',
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            // Elimina el token actual del usuario
+            $user->tokens()->delete(); // Esto eliminará todos los tokens del usuario
+            Auth::guard('web')->logout();
+            return response()->json(['message' => 'Successfully logged out']);
+        }
+
+        return response()->json(['message' => 'No user logged in'], 401);
     }
     // public function handleGoogleLogin(Request $request)
     // {

@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('auth', [GoogleController::class, 'redirectToAuth']);
 Route::get('auth/callback', [GoogleController::class, 'handleAuthCallback']);
+Route::middleware('auth:sanctum')->post('/auth/logout', [GoogleController::class, 'logout']);
 
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);

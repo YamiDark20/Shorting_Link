@@ -22,8 +22,10 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
 
     useEffect(() => {
         if(links_user.length == 0 && status_links_user == 'idle'){
-            // console.log("enttiejdkk", users)
-            dispatch(fetchAllLinksUser({"id_user": users[0].id}));
+            console.log("enttiejdkk", users)
+            if(users[0] != undefined){
+                dispatch(fetchAllLinksUser({"id_user": users[0].id}));
+            }
         }
     });
 

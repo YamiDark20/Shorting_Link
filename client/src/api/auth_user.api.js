@@ -12,6 +12,14 @@ export const authCallbackUser = (info) => { // use
     return auth_userAPI.get('/callback' + info.located)
 }
 
+export const logoutUser = (info) => { // use
+    return auth_userAPI.post('/logout', info, {
+        headers: {
+            'Authorization': `Bearer ${info.token}` // Asegúrate de incluir el token
+        }
+    })
+}
+
 // export const verificarUsername = (user) => {  // use
 //     return userAPI.get('/verificar/username/?username=' + user.username)
 // }

@@ -1,5 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getAuthUser, authCallbackUser } from "../api/auth_user.api";
 
+export const fetchAuthUser = createAsyncThunk('users/fetchAuthUser', async (info_user) => {
+    try{
+
+        const res = await getAuthUser();
+        // setLoginUrl(res.data.url);
+        return res.data.url;
+    } catch (error) {
+        console.log(error, "error")
+        throw new Error("No tiene ningun link dicho usuario");
+    }
+});
+
+export const fetchAuthCallbackUser = createAsyncThunk('users/fetchAuthCallbackUser', async (info_user) => {
+    try{
+
+        const res = await authCallbackUser({"located": info_user.located});
+        // setLoginUrl(res.data.url);
+        return res.data;
+    } catch (error) {
+        console.log(error, "error")
+        throw new Error("No tiene ningun link dicho usuario");
+    }
+});
 
 const usersSlice = createSlice({
   name: 'users',
@@ -7,28 +31,44 @@ const usersSlice = createSlice({
     users: [],
     status_user: 'idle',
     error: null,
-    token: ""
+    token: "",
+    loginUrl: null
   },
   reducers: {
     set_User: (state, action) => {
-        console.log(action.payload, "e73g7egjjj")
-        state.users = [action.payload];
-        state.token = action.payload["token"]
+        // console.log(action.payload, "e73g7egjjj", action.payload["access_token"])
+        state.users = [action.payload["user"]];
+        state.token = action.payload["access_token"]
+    },
+    vaciar_User: (state, action) => {
+        // console.log(action.payload, "e73g7egjjj", action.payload["access_token"])
+        state.users = [];
+        state.token = ""
     }
   },
   extraReducers: (builder) => {
     builder
-    //   .addCase(fetchAllTipoMaestria.pending, (state) => {
+    //   .addCase(fetchAuthUser.pending, (state) => {
     //     state.status_user = 'loading';
     //   })
-    //   .addCase(fetchAllTipoMaestria.fulfilled, (state, action) => {
-    //     state.status_user = 'succeeded';
-    //     state.users = action.payload;
-    //   })
-    //   .addCase(fetchAllTipoMaestria.rejected, (state, action) => {
-    //     state.status_user = 'failed';
-    //     state.error = action.error.message;
-    //   })
+      .addCase(fetchAuthUser.fulfilled, (state, action) => {
+        // state.status_user = 'succeeded';
+        state.loginUrl = action.payload;
+      })
+      .addCase(fetchAuthUser.rejected, (state, action) => {
+        // state.status_user = 'failed';
+        state.error = action.error.message;
+      })
+
+      .addCase(fetchAuthCallbackUser.fulfilled, (state, action) => {
+        state.status_user = 'succeeded';
+        state.users = [action.payload["user"]];
+        state.token = action.payload["access_token"]
+      })
+      .addCase(fetchAuthCallbackUser.rejected, (state, action) => {
+        state.status_user = 'failed';
+        state.error = action.error.message;
+      })
     //   .addCase(createNewMaestria.fulfilled, (state, action) => {
     //       state.maestrias.push(action.payload);
     //   })
@@ -47,5 +87,5 @@ const usersSlice = createSlice({
     //   });
   },
 });
-export const { set_User } = usersSlice.actions;
+export const { set_User, vaciar_User } = usersSlice.actions;
 export default usersSlice.reducer;
