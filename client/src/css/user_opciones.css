@@ -7,9 +7,9 @@
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     --tw-translate-x: -25%;
     width: 300px;
-    height: 290px;
+    height: 150px;
     color: #1a1a1a;
-    background: #eefff3;
+    background: #eef7ff;
     border-radius: 5%;
     border: 2px solid #b0b0b0;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), -2px -2px 4px rgba(0, 0, 0, 0.2), 7px 7px 14px rgba(0, 0, 0, 0.1);

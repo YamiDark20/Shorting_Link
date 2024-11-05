@@ -12,7 +12,7 @@ import './index.css';
 import '../src/css/footer.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
-import GoogleCallback from './components/pages/GoogleCallback';
+// import GoogleCallback from './components/pages/GoogleCallback';
 import { DashboardPage } from './components/pages/dashboard';
 
 function App() {
@@ -59,6 +59,7 @@ function App() {
                             ? <Route path="/*" element={<AutenticadoRoutes theme={theme} isToastVisible={isToastVisible} setIsToastVisible={setIsToastVisible} />} />
                             : <Route path="/*" element={<HomePage theme={theme} />} />
                         } */}
+                        <Route path="/*" element={<HomePage theme={theme} />} />
                         <Route path='*' element={<Navigate to='/' replace />} />
                         <Route path="/dashboard" element={<DashboardPage theme={theme} isToastVisible={isToastVisible} setIsToastVisible={setIsToastVisible} />}></Route>
 

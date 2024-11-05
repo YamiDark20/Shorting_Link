@@ -28,10 +28,10 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
 
     useEffect(() => {
         if(links_user.length == 0 && status_links_user == 'idle'){
-            // console.log("enttiejdkk", users)
-            if(users[0] != undefined){
-                dispatch(fetchAllLinksUser({"id_user": users[0].id}));
-            }
+            // console.log("enttiejdkk", users, Cookies.get('id_user'))
+            // if(users[0] != undefined){
+            dispatch(fetchAllLinksUser({"id_user": Cookies.get('id_user')}));
+            // }
         }
         console.log(theme, "wqqassddd")
 
@@ -64,7 +64,7 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
                     sameSite: 'strict',
                     expires: 1
                 })
-                dispatch(set_User(res.data));
+                dispatch(fetchAllLinksUser({"id_user": Cookies.get('id_user')}));
                 setLoading(false);
                 // setData(res.data);
                 console.log(res.data);
@@ -129,7 +129,7 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
         setIsToastVisible(true);
         return toast(
             (t) => (
-                <LinkCreatePage toast={toast} t={t} setIsToastVisible={setIsToastVisible} id_user={users[0].id} />
+                <LinkCreatePage toast={toast} t={t} setIsToastVisible={setIsToastVisible} id_user={Cookies.get('id_user')} />
             ),
             {
                 duration: Infinity,
@@ -148,6 +148,7 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
 
     const actualizar_link = async (link_id_update) => {
         try {
+            // console.log("fa5ss6d66ddggg")
             const res = await getInfoLinkOfEtiqueta({"link_id": link_id_update})
             // console.log(res.data, "maoooall")
             if(res.data.length == 0){
@@ -162,7 +163,7 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
                 setIsToastVisible(true);
                 return toast(
                     (t) => (
-                        <LinkCreatePage toast={toast} t={t} setIsToastVisible={setIsToastVisible} id_user={users[0].id} info_link={res.data[0]} />
+                        <LinkCreatePage toast={toast} t={t} setIsToastVisible={setIsToastVisible} id_user={Cookies.get('id_user')} info_link={res.data[0]} />
                     ),
                     {
                         duration: Infinity,
@@ -180,7 +181,7 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
             }
         } catch (error) {
             // error_login = true
-            console.log(error.data, "eroeodkdkll")
+            console.log(error, "eroeodkdkll")
         }
         // setIsToastVisible(true);
         // return toast(
@@ -232,7 +233,8 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
                         <p className={`opciones_dash ${theme == 'dark' ? "dark_dash": "light_dash"}`} onClick={() => setOptionSelected(false)}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1024 1024" className='icon'><path fill="currentColor" d="M899.4 638.2h-27.198c-2.2-.6-4.2-1.6-6.4-2c-57.2-8.8-102.4-56.4-106.2-112.199c-4.401-62.4 31.199-115.2 89.199-132.4c7.6-2.2 15.6-3.8 23.399-5.8h27.2c1.8.6 3.4 1.6 5.4 1.8c52.8 8.6 93 46.6 104.4 98.6c.8 4 2 8 3 12v27.2c-.6 1.8-1.6 3.6-1.8 5.4c-8.4 52-45.4 91.599-96.801 103.6c-5 1.2-9.6 2.6-14.2 3.8zM130.603 385.8l27.202.001c2.2.6 4.2 1.6 6.4 1.8c57.6 9 102.6 56.8 106.2 113.2c4 62.2-32 114.8-90.2 131.8c-7.401 2.2-15 3.8-22.401 5.6h-27.2c-1.8-.6-3.4-1.6-5.2-2c-52-9.6-86-39.8-102.2-90.2c-2.2-6.6-3.4-13.6-5.2-20.4v-27.2c.6-1.8 1.6-3.6 1.8-5.4c8.6-52.2 45.4-91.6 96.8-103.6c4.8-1.201 9.4-2.401 13.999-3.601m370.801.001h27.2c2.2.6 4.2 1.6 6.4 2c57.4 9 103.6 58.6 106 114.6c2.8 63-35.2 116.4-93.8 131.4c-6.2 1.6-12.4 3-18.6 4.4h-27.2c-2.2-.6-4.2-1.6-6.4-2c-57.4-8.8-103.601-58.6-106.2-114.6c-3-63 35.2-116.4 93.8-131.4c6.4-1.6 12.6-3 18.8-4.4"/></svg> Opciones</p>
                     </div>
                 </div>
-                <div className={`options_helping_dash ${theme == 'light' ? "light": "dark"}`}>
+                {/* Contenido de la Opcion "Links"*/}
+                <div className={`options_helping_dash ${theme == 'light' ? "light": "dark"} ${optionSelected ? "active": "unactive"}`}>
                     <input type="text" className={`input_search_link ${theme == 'light' ? "light": "dark"}`} placeholder='Busca un link' />
                     <div className='options_links_dash'>
                         <button type="button" className={`btnoptionbasic ${ theme == 'light' ? "light": "dark"}`}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7l8.7 5l8.7-5M12 22V12"/></g></svg> {links_user.length == 0 ? "00": (links_user.length <= 9 ? "0" + links_user.length.toString(): links_user.length)} / 30</button>
@@ -241,16 +243,16 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
                     </div>
                 </div>
 
-                {isEtiquetasVisible ? <ListEtiquetas setIsEtiquetasVisible={setIsEtiquetasVisible} isEtiquetasVisible={isEtiquetasVisible} theme={theme} id_user={users[0].id} setIsToastVisible={setIsToastVisible} />: null}
-                <div className={`div_central_dash ${theme == 'light' ? "light": "dark"}`}>
+                {isEtiquetasVisible ? <ListEtiquetas setIsEtiquetasVisible={setIsEtiquetasVisible} isEtiquetasVisible={isEtiquetasVisible} theme={theme} id_user={Cookies.get('id_user')} setIsToastVisible={setIsToastVisible} />: null}
+                <div className={`div_central_dash ${theme == 'light' ? "light": "dark"} ${optionSelected ? "active": "unactive"}`}>
                     {etiqueta_links.length == 0 ? (links_user.map(link_user => (
                         <div className={`content_div_central ${theme == 'light' ? "light": "dark"}`}>
                             <div className='short_link_dash'>
                                 {/* <p onClick={() => window.location.href = `http://127.0.0.1:8000/api/${users[0].id}/${link_user.short_link}`}>{link_user.short_link}</p> */}
-                                <a href={`http://127.0.0.1:8000/api/${users[0].id}/${link_user.short_link}`}>{link_user.short_link}</a>
+                                <a href={`http://127.0.0.1:8000/api/${Cookies.get('id_user')}/${link_user.short_link}`}>{link_user.short_link}</a>
                                 <div className='opciones_link_short_dash'>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={`icon_option_link ${theme == 'light' ? "light": "dark"}`} onClick={() => {
-                                        navigator.clipboard.writeText(`http://127.0.0.1:8000/api/${users[0].id}/${link_user.short_link}`)
+                                        navigator.clipboard.writeText(`http://127.0.0.1:8000/api/${Cookies.get('id_user')}/${link_user.short_link}`)
                                         toast.success("Se ha copiado el link con exito", {
                                             position: 'bottom-right',
                                             style: getErrorToastStyles(window.innerWidth)
@@ -261,7 +263,7 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
 
                                     <svg xmlns="http://www.w3.org/2000/svg" className={`icon_option_link ${theme == 'light' ? "light": "dark"}`} viewBox="-3 -2 24 24"  onClick={() => {
                                         delete_link({
-                                            "user_id": users[0].id,
+                                            "user_id": Cookies.get('id_user'),
                                             "short_link": link_user.short_link,
                                             "id": link_user.id
                                         })
@@ -280,10 +282,10 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
                     ))):(etiqueta_links.map(link_user => (
                         <div className={`content_div_central ${theme == 'light' ? "light": "dark"}`}>
                             <div className='short_link_dash'>
-                                <a href={`http://127.0.0.1:8000/api/${users[0].id}/${link_user.short_link}`}>{link_user.short_link}</a>
+                                <a href={`http://127.0.0.1:8000/api/${Cookies.get('id_user')}/${link_user.short_link}`}>{link_user.short_link}</a>
                                 <div className='opciones_link_short_dash'>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={`icon_option_link ${theme == 'light' ? "light": "dark"}`} onClick={() => {
-                                        navigator.clipboard.writeText(`http://127.0.0.1:8000/api/${users[0].id}/${link_user.short_link}`)
+                                        navigator.clipboard.writeText(`http://127.0.0.1:8000/api/${Cookies.get('id_user')}/${link_user.short_link}`)
                                         toast.success("Se ha copiado el link con exito", {
                                             position: 'bottom-right',
                                             style: getErrorToastStyles(window.innerWidth)
@@ -294,7 +296,7 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
 
                                     <svg xmlns="http://www.w3.org/2000/svg" className={`icon_option_link ${theme == 'light' ? "light": "dark"}`} viewBox="-3 -2 24 24"  onClick={() => {
                                         delete_link({
-                                            "user_id": users[0].id,
+                                            "user_id": Cookies.get('id_user'),
                                             "short_link": link_user.short_link,
                                             "id": link_user.link_id
                                         })
@@ -346,6 +348,11 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
                             </div>
                         </div>
                     ))} */}
+                </div>
+
+                {/* Contenido de la Opcion "Opciones"*/}
+                <div className={`div_central_dash ${theme == 'light' ? "light": "dark"} ${optionSelected ? "unactive": "active"}`}>
+                    <p className='titulo_selected_dash'>Links Acortados</p>
                 </div>
             </div>
         )

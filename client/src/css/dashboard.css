@@ -101,6 +101,15 @@
     align-items: center; */
 }
 
+.options_helping_dash.active{
+    opacity: 1;
+}
+
+.options_helping_dash.unactive{
+    opacity: 0;
+    display: none;
+}
+
 .input_search_link{
     width: 25%;
     font-size: 18px;
@@ -195,6 +204,15 @@
     grid-template-columns: 1fr 1fr;
     margin: 8px 24px;
     grid-gap: 16px;
+}
+
+.div_central_dash.active{
+    opacity: 1;
+}
+
+.div_central_dash.unactive{
+    opacity: 0;
+    display: none;
 }
 
 .div_central_dash .content_div_central{

@@ -104,7 +104,10 @@ class Categoria_LinkController extends Controller
         $categorias_user = Linksuser::where('linksusers.id', $link_id)->join('categoria_links', 'categoria_links.link_id', '=', 'linksusers.id')->select('categoria_links.link_id', 'categoria_links.categoria_id', 'linksusers.short_link', 'linksusers.link_original', 'linksusers.user_id', 'linksusers.descripcion', 'linksusers.created_at')
         ->get();
         if(sizeof($categorias_user) == 0){
-            return response()->json(['message' => 'No se ha encontrado ninguna categoria que pertenezca a el usuario con id ' . $link_id], 404);
+            $categorias_user = Linksuser::where('linksusers.id', $link_id)->select('linksusers.short_link', 'linksusers.link_original', 'linksusers.user_id', 'linksusers.descripcion', 'linksusers.created_at')->get();
+            if(sizeof($categorias_user) == 0){
+                return response()->json(['message' => 'No se ha encontrado ninguna categoria que pertenezca a el usuario con id ' . $link_id], 404);
+            }
         }
         return $categorias_user;
     }
