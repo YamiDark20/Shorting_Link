@@ -7,6 +7,7 @@ import { getInfoLinkOfEtiqueta } from "../../api/etiqueta_links.api";
 import {LinkCreatePage} from './link_create'
 import {LinkDeletePage} from './link_delete'
 import {ListEtiquetas} from './list_etiquetas'
+import {InfoUser} from './info_user'
 // import { redirigirLinkOriginal } from "../../api/links.api";
 import { useState, useEffect } from 'react';
 import {toast} from 'react-hot-toast'
@@ -351,9 +352,10 @@ export const DashboardPage = ({theme, isToastVisible, setIsToastVisible}) => {
                 </div>
 
                 {/* Contenido de la Opcion "Opciones"*/}
-                <div className={`div_central_dash ${theme == 'light' ? "light": "dark"} ${optionSelected ? "unactive": "active"}`}>
-                    <p className='titulo_selected_dash'>Links Acortados</p>
-                </div>
+                {/* <div className={`div_central_dash ${theme == 'light' ? "light": "dark"} ${optionSelected ? "unactive": "active"}`}> */}
+                    {/* <p className='titulo_selected_dash'>Links Acortados</p> */}
+                {!optionSelected ? <InfoUser theme={theme}/>: null}
+                {/* </div> */}
             </div>
         )
     }

@@ -307,6 +307,120 @@
     text-align: end;
 }
 
+
+.main_info_user{
+    /* padding-left: 0.5rem; */
+    /* margin: 1rem; */
+    /* font-size: 1rem; */
+    display: flex;
+    width: 100%;
+    /* padding-top: 2.5vh; */
+    flex-direction: column;
+    /* padding: 0 1rem; */
+    /* border-bottom: 1px solid #ccc; */
+}
+
+.main_update_user{
+    /* padding-left: 0.5rem; */
+    margin: 1rem;
+    /* font-size: 1rem; */
+    display: flex;
+    /* width: 100%; */
+    padding: 0 1rem 1rem 1rem;
+    /* padding-top: 2.5vh; */
+    flex-direction: column;
+    /* padding: 0 1rem; */
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+.main_update_user.light{
+    border: 2px solid #b0b0b0;
+}
+
+.main_update_user.dark{
+    border: 2px solid #ccc;
+}
+
+.titulo_update_user{
+    /* width: 30%; */
+    font-size: 24px;
+    text-decoration: solid;
+    font-weight:bolder;
+}
+
+.label_update_user{
+    /* width: 30%; */
+    font-size: 18px;
+    text-decoration: solid;
+    font-weight:bolder;
+}
+
+.input_update_user{
+    /* width: 25%; */
+    font-size: 18px;
+    padding: 8px;
+    /* margin: 10px 24px; */
+    border-radius: 8px;
+    /* border-color: #262626; */
+    border: 2px solid #b0b0b0;
+}
+
+.input_update_user.dark{
+    background-color: #262626;
+    color: currentColor;
+    border-color: #ccc;
+}
+
+.input_update_user.disable{
+    background-color: #ededed;
+}
+
+.input_update_user.dark.disable{
+    background-color: #3d3d3d;
+}
+
+/* .btn_update_user{
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 4px;
+    height: 45px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border-width: 1px;
+    color: #eef7ff;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+} */
+
+.btn_update_user{
+    background-color: #eef7ff;
+    border: 2px solid #b0b0b0;
+    color: currentColor;
+    font-size: 18px;
+    margin-left: 4px;
+    height: 45px;
+    margin-top: 16px;
+    border-radius: 8px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    /* border-width: 1px; */
+}
+
+.btn_update_user:hover{
+    background-color: #e7e7e7;
+}
+
+.btn_update_user.dark{
+    background-color: #1c1c1c;
+}
+
+.btn_update_user.dark:hover{
+    background-color: #3d3d3d;
+}
+
 @media ((min-width: 1000px) and (min-height: 500px)){
 
     .bienvenida_dash p{
@@ -316,3 +430,4 @@
         height: 20px;
     }
 }
+
