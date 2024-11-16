@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getAuthUser, authCallbackUser } from "../api/auth_user.api";
+import { updateUser } from "../api/user.api";
 
 export const fetchAuthUser = createAsyncThunk('users/fetchAuthUser', async (info_user) => {
     try{
@@ -18,6 +19,23 @@ export const fetchAuthCallbackUser = createAsyncThunk('users/fetchAuthCallbackUs
 
         const res = await authCallbackUser({"located": info_user.located});
         // setLoginUrl(res.data.url);
+        return res.data;
+    } catch (error) {
+        console.log(error, "error")
+        throw new Error("No tiene ningun link dicho usuario");
+    }
+});
+
+export const updateExistingUser = createAsyncThunk('users/updateExistingUser', async (info_user) => {
+    try{
+
+        const res = await updateUser({
+            "id": info_user.id,
+            "name": info_user.name,
+            "email": info_user.email
+        });
+        // setLoginUrl(res.data.url);
+        console.log(res.data, "lkaisioo")
         return res.data;
     } catch (error) {
         console.log(error, "error")
@@ -75,13 +93,13 @@ const usersSlice = createSlice({
     //   .addCase(createNewMaestria.rejected, (state, action) => {
     //     state.error = action.error.message;
     //   })
-    //   .addCase(updateExistingMaestria.fulfilled, (state, action) => {
-    //     const index = state.maestrias.findIndex((maestria) => maestria.codmaestria === action.payload.codmaestria);
-    //     state.maestrias[index] = action.payload;
-    //   })
-    //   .addCase(updateExistingMaestria.rejected, (state, action) => {
-    //     state.error = action.error.message;
-    //   })
+      .addCase(updateExistingUser.fulfilled, (state, action) => {
+        const index = state.users.findIndex((user) => user.id === action.payload.id);
+        state.users[index] = action.payload;
+      })
+      .addCase(updateExistingUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
     //   .addCase(deleteSelectedMaestria.fulfilled, (state, action) => {
     //     state.maestrias = state.maestrias.filter((maestria) => maestria.id !== action.payload);
     //   });

@@ -9,6 +9,7 @@ import {toast} from 'react-hot-toast'
 import Cookies from 'js-cookie';
 import { logoutUser } from "../../api/auth_user.api";
 import { vaciar_User } from "../../redux/user_slice";
+import { updateUser } from '../../api/user.api';
 import { useNavigate } from "react-router-dom";
 
 export const InfoUser = ({theme}) => {
@@ -27,7 +28,7 @@ export const InfoUser = ({theme}) => {
     //     }
     // };
 
-    useEffect(() => {
+    // useEffect(() => {
         // if(etiquetas_user.length == 0 && status_etiquetas_user == 'idle'){
         //     // console.log("enttiejdkk", users)
         //     dispatch(fetchAllCategoriasUser({"user_id": id_user}));
@@ -41,7 +42,46 @@ export const InfoUser = ({theme}) => {
         // return () => {
         //     document.removeEventListener('mousedown', handleClickOutside);
         // };
-    }, []);
+    // }, []);
+
+    const getErrorToastStyles = (screenWidth) => {
+        if (screenWidth < 400) {
+          return {
+            fontSize: '10px',
+            padding: '6px',
+            background: "#101010",
+            color: "#fff"
+          };
+        }else if (screenWidth > 400 && screenWidth < 590) {
+          return {
+            fontSize: '12px',
+            padding: '6px',
+            background: "#101010",
+            color: "#fff"
+          };
+        } else if (screenWidth > 590 && screenWidth < 1000) {
+          return {
+            fontSize: '16px',
+            padding: '6px',
+            background: "#101010",
+            color: "#fff"
+          };
+        } else if (screenWidth > 1000 && screenWidth < 1200) {
+          return {
+            fontSize: '18px',
+            padding: '6px',
+            background: "#101010",
+            color: "#fff"
+          };
+        } else {
+          return {
+            fontSize: '20px',
+            padding: '6px',
+            background: "#101010",
+            color: "#fff"
+          };
+        }
+      };
 
     // const getErrorToastStyles = (screenWidth) => {
     //     if (screenWidth < 400) {
@@ -123,27 +163,39 @@ export const InfoUser = ({theme}) => {
     //     );
     // };
 
-    // const handleLogout = async () => {
-    //     try {
-    //         console.log(Cookies.get("token"), "ajkskdkk")
-    //         const res = await logoutUser({
-    //             "token": Cookies.get("token")
-    //         });
-    //         dispatch(vaciar_User())
-    //         // Elimina el token del almacenamiento local o del estado
-    //         // localStorage.removeItem('token');
-    //         console.log('Logged out successfully');
-    //         Cookies.remove('name')
-    //         Cookies.remove('email')
+    const updateInfoUser = async () => {
+        try {
+            // console.log(Cookies.get("token"), "ajkskdkk")
+            const res = await updateUser({
+                "id": Cookies.get("id_user"),
+                "name": name_user,
+                "email": Cookies.get("email")
+            });
+            Cookies.set('name', name_user, {
+                secure: true,
+                sameSite: 'strict',
+                expires: 1
+            })
+            toast.success("Se ha actualizado correctamente la informacion del usuario.", {
+                position: 'bottom-right',
+                    style: getErrorToastStyles(window.innerWidth),
+                    className: 'toast'
+            })
+            // dispatch(vaciar_User())
+            // Elimina el token del almacenamiento local o del estado
+            // localStorage.removeItem('token');
+            // console.log('Logged out successfully');
+            // Cookies.remove('name')
+            // Cookies.remove('email')
 
-    //         Cookies.remove('id_user')
-    //         Cookies.remove('token')
-    //         setIsUserOptionVisible(false);
-    //         navigate('/home')
-    //     } catch (error) {
-    //         console.error('Error logging out:', error);
-    //     }
-    // };
+            // Cookies.remove('id_user')
+            // Cookies.remove('token')
+            // setIsUserOptionVisible(false);
+            // navigate('/home')
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
     return (
         <div className={`main_info_user ${theme == 'light' ? "light": "dark"}`}>
             <div className="main_update_user">
@@ -156,7 +208,9 @@ export const InfoUser = ({theme}) => {
                 <h1 className="label_update_user">Email del Usuario</h1>
                 <input type="text" className={`input_update_user ${theme == 'light' ? "light": "dark"} disable`} placeholder='Ingrese un nombre' disabled value={Cookies.get('email')} />
 
-                <button className={`btn_update_user ${theme == 'light' ? "light": "dark"}`}>Logout</button>
+                <button className={`btn_update_user ${theme == 'light' ? "light": "dark"}`} onClick={() => updateInfoUser()}>Guardar</button>
+
+                {/* <button className={`btn_update_user ${theme == 'light' ? "light": "dark"}`}>Logout</button> */}
             </div>
             {/* <div className="btn-user_opcion"> */}
             {/* <button className={`${theme == 'light' ? "light": "dark"}`} onClick={handleLogout}>Logout</button></div> */}
