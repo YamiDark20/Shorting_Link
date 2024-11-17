@@ -10,6 +10,7 @@ import Cookies from 'js-cookie';
 import { logoutUser } from "../../api/auth_user.api";
 import { vaciar_User } from "../../redux/user_slice";
 import { updateUser } from '../../api/user.api';
+import { generarJsonLinks } from '../../api/links.api';
 import { useNavigate } from "react-router-dom";
 
 export const InfoUser = ({theme}) => {
@@ -196,6 +197,27 @@ export const InfoUser = ({theme}) => {
             console.error('Error logging out:', error);
         }
     };
+
+    const exportar_links = async () => {
+        try {
+            // console.log(Cookies.get("token"), "ajkskdkk")
+            const res = await generarJsonLinks({
+                "id_user": Cookies.get("id_user")
+            });
+            const json = JSON.stringify(res.data);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');  
+
+            link.href = url;
+            link.setAttribute('download', 'links.json');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error for downloading the file:', error);
+        }
+      };
     return (
         <div className={`main_info_user ${theme == 'light' ? "light": "dark"}`}>
             <div className="main_update_user">
@@ -208,9 +230,22 @@ export const InfoUser = ({theme}) => {
                 <h1 className="label_update_user">Email del Usuario</h1>
                 <input type="text" className={`input_update_user ${theme == 'light' ? "light": "dark"} disable`} placeholder='Ingrese un nombre' disabled value={Cookies.get('email')} />
 
-                <button className={`btn_update_user ${theme == 'light' ? "light": "dark"}`} onClick={() => updateInfoUser()}>Guardar</button>
+                <button className={`btn_update_user ${theme == 'light' ? "light": "dark"}`} onClick={() => updateInfoUser()}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><g fill="none"><path stroke="currentColor" strokeLinejoin="round" strokeWidth="4" d="M6 9a3 3 0 0 1 3-3h25.281L42 13.207V39a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z"/><path d="M24.008 6L24 13.385c0 .34-.448.615-1 .615h-8c-.552 0-1-.275-1-.615V6" clipRule="evenodd"/><path stroke="currentColor" strokeLinejoin="round" strokeWidth="4" d="M24.008 6L24 13.385c0 .34-.448.615-1 .615h-8c-.552 0-1-.275-1-.615V6z"/><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M9 6h25.281M14 26h20m-20 8h10.008"/></g></svg> Guardar</button>
 
                 {/* <button className={`btn_update_user ${theme == 'light' ? "light": "dark"}`}>Logout</button> */}
+            </div>
+
+            <div className="main_update_user">
+                <h1 className="titulo_update_user">Opciones de la cuenta</h1>
+
+                <h1 className="label_update_user">Exportar Links</h1>
+
+                <button className={`btn_update_user ${theme == 'light' ? "light": "dark"}`} onClick={() => exportar_links()}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.877a2 2 0 0 0 1.94-1.515L22 17"/></svg> Exportar Links</button>
+                <br/>
+
+                <h1 className="label_update_user">Eliminar Cuenta</h1>
+
+                <button className={`btn_delete_user`}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="4"><path d="M9 10v34h30V10z"/><path strokeLinecap="round" d="M20 20v13m8-13v13M4 10h40"/><path d="m16 10l3.289-6h9.488L32 10z"/></g></svg> Eliminar Cuenta</button>
             </div>
             {/* <div className="btn-user_opcion"> */}
             {/* <button className={`${theme == 'light' ? "light": "dark"}`} onClick={handleLogout}>Logout</button></div> */}

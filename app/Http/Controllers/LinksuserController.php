@@ -76,6 +76,22 @@ class LinksuserController extends Controller
         return $links_user;
     }
 
+    public function export_links(int $id_user){
+        $validator = Validator::make([
+            'user_id' => $id_user,
+        ],[
+            'user_id' => ['required', 'integer', "exists:users,id"]
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $links_user = Linksuser::where('user_id', $id_user)->select('linksusers.short_link', 'linksusers.link_original', 'linksusers.created_at')->get();
+        if(!$links_user){
+            return response()->json(['message' => 'No se ha encontrado ningun enlace que pertenezca a el usuario con id ' . $id_user], 404);
+        }
+        return $links_user;
+    }
+
     public function update(Request $request, int $id_user, string $short_link)
     {
         $validator = Validator::make([

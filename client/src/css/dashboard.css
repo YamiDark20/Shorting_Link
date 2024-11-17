@@ -413,6 +413,25 @@
     background-color: #e7e7e7;
 }
 
+.btn_delete_user{
+    background-color: #c11515;
+    border: 2px solid #b0b0b0;
+    color: #eef7ff;
+    font-size: 18px;
+    margin-left: 4px;
+    height: 45px;
+    margin-top: 16px;
+    border-radius: 8px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    /* border-width: 1px; */
+}
+
+.btn_delete_user:hover{
+    background-color: #f73c3c;
+}
+
 .btn_update_user.dark{
     background-color: #1c1c1c;
 }

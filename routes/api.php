@@ -33,6 +33,7 @@ Route::get('/links/users/{id_user}/{short_link}', [LinksuserController::class, '
 Route::put('/links/users/{id_user}/{short_link}', [LinksuserController::class, 'update']);
 Route::delete('/links/users/{id_user}/{short_link}', [LinksuserController::class, 'destroy']);
 Route::get('/links/users/{id_user}', [LinksuserController::class, 'show_links']);
+Route::get('/links/export/{id_user}', [LinksuserController::class, 'export_links']);
 
 Route::get('/categoria/links', [Categoria_LinkController::class, 'index']);
 Route::post('/categoria/links', [Categoria_LinkController::class, 'store']);

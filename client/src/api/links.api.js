@@ -11,3 +11,7 @@ const linksUserAPI = axios.create({
 export const redirigirLinkOriginal = (infolinks) => {
     return linksUserAPI.get('/' + infolinks.id_user + '/' + infolinks.short_link)
 }
+
+export const generarJsonLinks = (infolinks) => {
+    return linksUserAPI.get('/links/export/' + infolinks.id_user)
+}
