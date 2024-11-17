@@ -9,7 +9,7 @@ import {toast} from 'react-hot-toast'
 import Cookies from 'js-cookie';
 import { logoutUser } from "../../api/auth_user.api";
 import { vaciar_User } from "../../redux/user_slice";
-import { updateUser } from '../../api/user.api';
+import { updateUser, deleteUser } from '../../api/user.api';
 import { generarJsonLinks } from '../../api/links.api';
 import { useNavigate } from "react-router-dom";
 
@@ -193,6 +193,34 @@ export const InfoUser = ({theme}) => {
             // Cookies.remove('token')
             // setIsUserOptionVisible(false);
             // navigate('/home')
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
+
+
+    const deleteExistsUser = async () => {
+        try {
+            // console.log(Cookies.get("token"), "ajkskdkk")
+            const res = await deleteUser({
+                "id": Cookies.get("id_user")
+            });
+            toast.success("Se ha eliminado correctamente la informacion del usuario.", {
+                position: 'bottom-right',
+                    style: getErrorToastStyles(window.innerWidth),
+                    className: 'toast'
+            })
+            dispatch(vaciar_User())
+            // Elimina el token del almacenamiento local o del estado
+            // localStorage.removeItem('token');
+            // console.log('Logged out successfully');
+            Cookies.remove('name')
+            Cookies.remove('email')
+
+            Cookies.remove('id_user')
+            Cookies.remove('token')
+            // setIsUserOptionVisible(false);
+            navigate('/home')
         } catch (error) {
             console.error('Error logging out:', error);
         }

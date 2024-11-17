@@ -8,6 +8,10 @@ export const updateUser = (user) => { // use
     return userAPI.put('' + user.id, user)
 }
 
+export const deleteUser = (user) => { // use
+    return userAPI.delete('' + user.id)
+}
+
 // export const getToken = (user) => { // use
 //     return userAPI.post('/login/', user)
 // }
